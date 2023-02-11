@@ -3,9 +3,8 @@ import Head from "next/head";
 import FullData from "../components/FullData";
 import QuickView from "../components/QuickView";
 import Summary from "../components/Summary";
-import SearchBar from "@/components/SearchBar";
+
 export default function Home({
-  SearchBar,
   selectedSummary,
   selectedQuickView,
   selectedFullData,
