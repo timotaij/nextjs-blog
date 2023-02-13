@@ -10,36 +10,36 @@ const quickViewTable = ({ playerRow, percentileScores, Grades }) => { return [
         title: "Opportunity & Usage",
         vsaverage: true,
         stats: [
-            ["Minutes/Game", "33.7", "93%", "24%"],
-            ["Percent of Games Started", "100.0", "82%", "169%"],
-            ["Touches/Game", "61.8", "89%", "85%"],
+            ["Minutes/Game", playerRow[0]['Minutes/Game'], percentileScores['Minutes/Game'], Grades['Minutes/Game']],
+            ["Percent of Games Started", playerRow[0]['Games Started_pct'], percentileScores['Games Started_pct'], Grades['Games Started_pct']],
+            ["Touches/Game", playerRow[0]['Touches/Game'], percentileScores['Touches/Game'], Grades['Touches/Game']],
         ],
     },
     {
         title: "Contextual Data",
         vsaverage: false,
         stats: [
-            ["Lineup Finishing", "56.50%", "60%", "B-"],
-            ["Lineup Playmaking", "68.20%", "79%", "B+"],
-            ["Lineup Spacing", "+0.10", "18%", "F"],
+            ["Lineup Finishing", playerRow[0]['Lineup Finishing_pct'], percentileScores['Lineup Finishing_pct'], Grades['Lineup Finishing_pct']],
+            ["Lineup Playmaking", playerRow[0]['Lineup Playmaking_pct'], percentileScores['Lineup Playmaking_pct'], Grades['Lineup Playmaking_pct']],
+            ["Lineup Spacing", playerRow[0]['Lineup Spacing_pct'], percentileScores['Lineup Spacing_pct'], Grades['Lineup Spacing_pct']],
         ],
     },
     {
         title: "Perimeter Shooting",
         vsaverage: false,
         stats: [
-            ["3PT%", "36.2%", "67%", "B"],
-            ["Pull Up 3PT%", "33.2%", "62%", "B-"],
-            ["C&S 3PT%", "40.4%", "79%", "B+"],
+            ["3PT%", playerRow[0]['3PT_pct'], percentileScores['3PT_pct'], Grades['3PT_pct']],
+            ["Pull Up 3PT%", playerRow[0]['Pull Up 3PT_pct'], percentileScores['Pull Up 3PT_pct'], Grades['Pull Up 3PT_pct']],
+            ["C&S 3PT%", playerRow[0]['C&S 3PT_pct'], percentileScores['C&S 3PT_pct'], Grades['C&S 3PT_pct']],
         ],
     },
     {
         title: "One on One",
         vsaverage: false,
         stats: [
-            ["Total Isolations / 75", "2.5", "74%", "B+"],
-            ["Total Iso Impact / 75", "-0.1", "39%", "D+"],
-            ["Total Isolation eFG%", "41.7%", "49%", "C"],
+            ["Total Isolations / 75", playerRow[0]['Total Isolations / 75'], percentileScores['Total Isolations / 75'], Grades['Total Isolations / 75']],
+            ["Total Iso Impact / 75", playerRow[0]['Total Iso Impact / 75'], percentileScores['Total Iso Impact / 75'], Grades['Total Iso Impact / 75']],
+            ["Total Isolation eFG%", playerRow[0]['Total Isolation eFG_pct'], percentileScores['Total Isolation eFG_pct'], Grades['Total Isolation eFG_pct']],
         ],
     },
 ];

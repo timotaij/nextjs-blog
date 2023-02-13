@@ -4,6 +4,7 @@ import FullData from "../components/FullData";
 import QuickView from "../components/QuickView";
 import Summary from "../components/Summary";
 
+
 export default function Home({
   selectedSummary,
   selectedQuickView,

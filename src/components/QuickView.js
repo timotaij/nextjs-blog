@@ -6,6 +6,10 @@ import Autocomplete from "@mui/material/Autocomplete";
 import TextField from "@mui/material/TextField";
 import quickViewTable from './QuickViewTable'
 import Papa from 'papaparse';
+import PlayerHeadshot from './PlayerHeadshot';
+import TeamSpons from './TeamName';
+import {GradeOutlined} from "@mui/icons-material";
+import IndexLogo from "./BballIndexLogo";
 
 
 
@@ -135,16 +139,18 @@ const QuickView = () => {
     const allPlayersArray = newFilteredPlayers;
     const playerArray = playerRow;
     const percentileArray = [];
-    for (const column of Object.keys(playerArray[0])) {
-      if (!isNaN(playerArray[0][column])) {
-        const columnValues = allPlayersArray.map((row) => row[column]);
-        columnValues.sort((a, b) => a - b);
-        let index = Math.round((columnValues.length - 1) * (playerArray[0][column] - columnValues[0]) / (columnValues[columnValues.length - 1] - columnValues[0]));
-        index = Math.max(index, 0);
-        index = Math.min(index, columnValues.length - 1);
-        percentileArray[column] = Math.round(100 * index / (columnValues.length - 1));
-      } else {
-        percentileArray[column] = playerArray[0][column] === "" ? "blank" : playerArray[0][column];
+    if (playerArray[0]) {
+      for (const column of Object.keys(playerArray[0])) {
+        if (!isNaN(playerArray[0][column])) {
+          const columnValues = allPlayersArray.map((row) => row[column]);
+          columnValues.sort((a, b) => a - b);
+          let index = Math.round((columnValues.length - 1) * (playerArray[0][column] - columnValues[0]) / (columnValues[columnValues.length - 1] - columnValues[0]));
+          index = Math.max(index, 0);
+          index = Math.min(index, columnValues.length - 1);
+          percentileArray[column] = Math.round(100 * index / (columnValues.length - 1));
+        } else {
+          percentileArray[column] = playerArray[0][column] === "" ? "blank" : playerArray[0][column];
+        }
       }
     }
 
@@ -255,16 +261,214 @@ const QuickView = () => {
         </>
         <Button onClick={handleRunClick}>Run</Button>
         {showTable && (
-            <Grid container spacing={3}>
-              {quickViewTable({ playerRow, percentileScores, Grades }).map((data, index) => (
-                  <Grid item xs={12} md={6} key={data.title + index}>
-                    <Card data={data} />
-                  </Grid>
-              ))}
-            </Grid>
+            <>
+              <div style={{ display: 'flex', marginTop: '15px', paddingLeft: '20px', backgroundColor: 'gray' }}>
+                <PlayerHeadshot playerID={playerId} />
+                <div style={{ marginLeft: '10px', borderRight: '1px dashed black', paddingLeft: '5px', paddingRight: '20px', marginTop:'10px', textAlign: 'center' }}>
+                  {playerRow.length > 0 && (
+                      <>
+                        <div css={css`font-size: 22px; padding-bottom: 10px;`}>
+                          {playerRow[0]["Player"].split(' ').slice(0,1).map((name, index) => (
+                              <div key={index}>{name}</div>
+                          ))}
+                          {playerRow[0]["Player"].split(' ').slice(1).map((name, index) => (
+                              <span key={index}> {name}</span>
+                          ))}
+                        </div>
+                        <div css={css`padding-bottom: 10px;`}>
+                          Team: { playerRow[0]["Team(s)"]}
+                        </div>
+                        <div>
+                          Position: { playerRow[0]["Offense Position"]}
+                        </div>
+                      </>
+                  )}
+                </div>
+                <div style={{ marginLeft: '10px', paddingLeft: '5px', paddingRight: '20px', marginTop:'13px' }}>
+                  {playerRow.length > 0 && (
+                      <>
+                        <div css={css`font-size: 12px; line-height: 2; text-align: center;`}>
+                          Height: {playerRow[0]["Height"]}
+                          <br />
+                          Weight: {playerRow[0]["Weight"]}
+                          <br />
+                          Age: {playerRow[0]["Age"]}
+                        </div>
+                      </>
+                  )}
+                </div>
+                <div style={{ marginLeft: '-15px', paddingLeft: '-5px', paddingRight: '40px', marginBottom:'-40px', marginTop:'-40px', paddingTop:'45px' }}>
+                  {playerRow.length > 0 && (
+                      <>
+                        <div css={css`font-size: 12px; line-height: 2; text-align: center;`}>
+                            <TeamSpons teamName={playerRow[0]['Team(s)'].slice(-3)} />
+                          <br />
+                        </div>
+                      </>
+                  )}
+                </div>
+                <div style={{ marginLeft: '-10px', paddingLeft: '0px', paddingRight: '10px', marginBottom:'0px', marginTop:'0px', paddingTop:'5px' }}>
+                  {playerRow.length > 0 && (
+                      <>
+                        <div css={css`font-size: 10px; line-height: 1.5; text-align: center;`}>
+                          <div style={{ width: '60px', height: '60px', backgroundColor: '#D3D3D3', borderRadius: '20px', textAlign: 'center', paddingTop: '5px' }}>
+                            Finishing
+                            <br />
+                            Talent:
+                            <div css={css`font-size: 20px;`}>
+                            {Grades["Finishing Talent"]}
+                            </div>
+                          </div>
+                          <br />
+                          <div style={{ width: '60px', height: '60px', backgroundColor: '#D3D3D3', borderRadius: '15px', textAlign: 'center', paddingTop: '5px'}}>
+                            3PT
+                            <br />
+                            Talent:
+                            <div css={css`font-size: 20px;`}>
+                              {Grades["3PT Shooting Talent"]}
+                            </div>
+                          </div>
+                        </div>
+                      </>
+                  )}
+                </div>
+                <div style={{ marginLeft: '10px', paddingLeft: '10px', paddingRight: '10px', marginBottom:'0px', marginTop:'0px', paddingTop:'5px' }}>
+                  {playerRow.length > 0 && (
+                      <>
+                        <div css={css`font-size: 10px; line-height: 1.5; text-align: center;`}>
+                          <div style={{ width: '60px', height: '60px', backgroundColor: '#D3D3D3', borderRadius: '20px', textAlign: 'center', paddingTop: '5px' }}>
+                            One on One
+                            <br />
+                            Talent:
+                            <div css={css`font-size: 20px;`}>
+                              {Grades["One on One Talent"]}
+                            </div>
+                          </div>
+                          <br />
+                          <div style={{ width: '60px', height: '60px', backgroundColor: '#D3D3D3', borderRadius: '15px', textAlign: 'center', paddingTop: '5px' }}>
+                            Playmaking
+                            <br />
+                            Talent:
+                            <div css={css`font-size: 20px;`}>
+                              {Grades["Playmaking Talent"]}
+                            </div>
+                          </div>
+                        </div>
+                      </>
+                  )}
+                </div>
+                <div style={{ marginLeft: '10px', paddingLeft: '10px', paddingRight: '10px', marginBottom:'0px', marginTop:'0px', paddingTop:'5px' }}>
+                  {playerRow.length > 0 && (
+                      <>
+                        <div css={css`font-size: 10px; line-height: 1.5; text-align: center;`}>
+                          <div style={{ width: '60px', height: '60px', backgroundColor: '#D3D3D3', borderRadius: '20px', textAlign: 'center', paddingTop: '5px' }}>
+                            Off Reb
+                            <br />
+                            Talent:
+                            <div css={css`font-size: 20px;`}>
+                              {Grades["Offensive Rebounding Talent"]}
+                            </div>
+                          </div>
+                          <br />
+                          <div style={{ width: '60px', height: '60px', backgroundColor: '#D3D3D3', borderRadius: '15px', textAlign: 'center', paddingTop: '5px' }}>
+                            Def Reb
+                            <br />
+                            Talent:
+                            <div css={css`font-size: 20px;`}>
+                              {Grades["Defensive Rebounding Talent"]}
+                            </div>
+                          </div>
+                        </div>
+                      </>
+                  )}
+                </div>
+                <div style={{ marginLeft: '10px', paddingLeft: '10px', paddingRight: '10px', marginBottom:'0px', marginTop:'0px', paddingTop:'5px' }}>
+                  {playerRow.length > 0 && (
+                      <>
+                        <div css={css`font-size: 10px; line-height: 1.5; text-align: center;`}>
+                          <div style={{ width: '60px', height: '60px', backgroundColor: '#D3D3D3', borderRadius: '20px', textAlign: 'center', paddingTop: '5px' }}>
+                            Rim
+                            <br />
+                            Protection:
+                            <div css={css`font-size: 20px;`}>
+                              {Grades["Rim Protection"]}
+                            </div>
+                          </div>
+                          <br />
+                          <div style={{ width: '60px', height: '60px', backgroundColor: '#D3D3D3', borderRadius: '15px', textAlign: 'center', paddingTop: '5px' }}>
+                            On-Ball
+                            <br />
+                            Defense:
+                            <div css={css`font-size: 20px;`}>
+                              {Grades["On-Ball Defense"]}
+                            </div>
+                          </div>
+                        </div>
+                      </>
+                  )}
+                </div>
+                <div style={{ marginLeft: '20px'}}>
+                  <IndexLogo />
+                </div>
+            </div>
+              <div style={{ display: 'flex', marginTop: '15px', marginBottom: '20px', borderTop: '1px solid gray', borderBottom: '1px solid gray' }}>
+                <div style={{ width: '25.00%', marginLeft: '0px', paddingLeft: '0px', paddingRight: '0px', marginTop: '13px', marginBottom: '13px' }}>
+                  {playerRow.length > 0 && (
+                      <>
+                        <div css={css`font-size: 10px; line-height: 2; text-align: center;`}>
+                          Advanced Position
+                          <br />
+                          <div css={css`font-size: 16px;`}>
+                            {playerRow[0]["Advanced Position"]}
+                          </div>
+                        </div>
+                      </>
+                  )}
+                </div>
+                <div style={{ width: '33.33%', marginLeft: '10px', paddingLeft: '150px', paddingRight: '20px', marginTop: '13px', marginBottom: '13px'}}>
+                  {playerRow.length > 0 && (
+                      <>
+                        <div css={css`font-size: 10px; line-height: 2; text-align: center;`}>
+                          Offensive Archetype
+                          <br />
+                          <div css={css`font-size: 16px;`}>
+                          {playerRow[0]["Offensive Archetype"]}
+                          </div>
+                        </div>
+                      </>
+                  )}
+                </div>
+                <div style={{ width: '33.33%', marginLeft: '10px', paddingLeft: '150px', paddingRight: '20px', marginTop: '13px', marginBottom: '13px' }}>
+                  {playerRow.length > 0 && (
+                      <>
+                        <div css={css`font-size: 10px; line-height: 2; text-align: center;`}>
+                          Defensive Role
+                          <br />
+                          <div css={css`font-size: 16px;`}>
+                          {playerRow[0]["Defensive Role"]}
+                          </div>
+                        </div>
+                      </>
+                  )}
+                </div>
+              </div>
+              <Grid container spacing={3}>
+                {quickViewTable({ playerRow, percentileScores, Grades }).map((data, index) => (
+                    <Grid item xs={12} md={6} key={data.title + index}>
+                      <Card data={data} />
+                    </Grid>
+                ))}
+              </Grid>
+            </>
         )}
       </div>
   );
 };
 
 export default QuickView;
+
+
+
+
+
+

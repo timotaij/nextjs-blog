@@ -7,12 +7,55 @@
   padding: 0;
   box-sizing: border-box;
   font-family: Roboto, Helvetica, Arial, sans-serif;
+  color: #fff;
 }
 
 html {
-  background: #dae0e6;
+  background: #222222;
 }
 
 .MuiButton-outlinedSecondary {
   border: "1px solid rgba(0, 0, 0, 0.12)";
+  background-color: #444;
+  color: #fff;
+}
+
+.MuiOutlinedInput-root {
+  background-color: #444;
+}
+
+.MuiAutocomplete-root {
+  background-color: #444;
+}
+
+.MuiPaper-root {
+  background-color: #444;
+}
+
+.MuiInputLabel-outlined, .MuiAutocomplete-inputRoot, .MuiOutlinedInput-input {
+  color: #fff;
+}
+
+.MuiCard-root {
+  background: #444;
+  color: white;
+}
+
+.MuiCardContent-root {
+  background: #444;
+  color: white;
+}
+
+.MuiTableRow-root:nth-child(even) {
+  background-color: #555;
+  color: white;
+}
+
+.MuiTableRow-root:nth-child(odd) {
+  background-color: #444;
+  color: white;
+}
+.MuiButton-root {
+  background-color: #444;
+  color: white;
 }
