@@ -10,7 +10,7 @@ import PlayerHeadshot from './PlayerHeadshot';
 import TeamSpons from './TeamName';
 import {GradeOutlined} from "@mui/icons-material";
 import IndexLogo from "./BballIndexLogo";
-import { StyledEngineProvider } from '@mui/material/styles';
+import { StyledEngineProvider, ThemeProvider } from '@mui/material/styles';
 
 
 
@@ -271,6 +271,7 @@ const Summary = () => {
 
   return (
       <StyledEngineProvider injectFirst>
+        <ThemeProvider theme = {muiTheme}>
       <div css={css`display:flex; flex-direction:column;`}>
         <>
           <Autocomplete
@@ -518,6 +519,7 @@ const Summary = () => {
             </>
         )}
       </div>
+          </ThemeProvider>
       </StyledEngineProvider>
   );
 };
