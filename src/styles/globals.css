@@ -59,12 +59,7 @@ html {
   background-color: #444;
   color: white;
 }
-[aria-owns="player-search-listbox"] {
-  background-color: #444;
-  color: #fff;
-}
-
-[aria-owns="player-search-listbox"] {
-  background-color: #444;
+.MuiAutocomplete-popper {
+  background-color: #000;
   color: #fff;
 }
