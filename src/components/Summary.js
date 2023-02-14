@@ -64,14 +64,26 @@ const Summary = () => {
     if (playerRow.length === 0) return;
     const percentileArray = [];
     for (const column of Object.keys(playerRow[0])) {
-      if (!isNaN(playerRow[0][column])) {
-        const columnValues = filteredPlayers.map((row) => row[column]);
+      let value = playerRow[0][column];
+      if (typeof value === 'string' && value.endsWith('%')) {
+        value = parseFloat(value.slice(0, -1));
+        playerRow[0][column] = value;
+      }
+      if (!isNaN(value)) {
+        const columnValues = filteredPlayers.map((row) => row[column]).filter(val => val !== '');
+        for (let i = 0; i < columnValues.length; i++) {
+          let val = columnValues[i];
+          if (typeof val === 'string' && val.endsWith('%')) {
+            val = parseFloat(val.slice(0, -1));
+            filteredPlayers[i][column] = val;
+          }
+        }
         columnValues.sort((a, b) => a - b);
-        let index = Math.round((columnValues.length - 1) * (playerRow[0][column] - columnValues[0]) / (columnValues[columnValues.length - 1] - columnValues[0]));
+        let index = Math.round((columnValues.length - 1) * (value - columnValues[0]) / (columnValues[columnValues.length - 1] - columnValues[0]));
         index = Math.max(0, Math.min(index, columnValues.length - 1));
         percentileArray[column] = 100 * index / (columnValues.length - 1);
       } else {
-        percentileArray[column] = playerRow[0][column] === "" ? "blank" : playerRow[0][column];
+        percentileArray[column] = value === "" ? "blank" : value;
       }
     }
     setPercentileScores(percentileArray);
@@ -79,14 +91,30 @@ const Summary = () => {
     for (const column of Object.keys(percentileArray)) {
       if (!isNaN(percentileArray[column])) {
         let grade;
-        if (percentileArray[column] >= 90) {
+        if (percentileArray[column] >= 95) {
+          grade = "A+";
+        } else if (percentileArray[column] >= 90) {
           grade = "A";
         } else if (percentileArray[column] >= 80) {
+          grade = "A-";
+        } else if (percentileArray[column] >= 74) {
+          grade = "B+";
+        } else if (percentileArray[column] >= 66) {
           grade = "B";
-        } else if (percentileArray[column] >= 70) {
-          grade = "C";
         } else if (percentileArray[column] >= 60) {
+          grade = "B-";
+        } else if (percentileArray[column] >= 54) {
+          grade = "C+";
+        } else if (percentileArray[column] >= 46) {
+          grade = "C";
+        } else if (percentileArray[column] >= 40) {
+          grade = "C-";
+        } else if (percentileArray[column] >= 34) {
+          grade = "D+";
+        } else if (percentileArray[column] >= 26) {
           grade = "D";
+        } else if (percentileArray[column] >= 20) {
+          grade = "D-";
         } else {
           grade = "F";
         }
@@ -139,18 +167,28 @@ const Summary = () => {
     const allPlayersArray = newFilteredPlayers;
     const playerArray = playerRow;
     const percentileArray = [];
-    if (playerArray[0]) {
-      for (const column of Object.keys(playerArray[0])) {
-        if (!isNaN(playerArray[0][column])) {
-          const columnValues = allPlayersArray.map((row) => row[column]);
-          columnValues.sort((a, b) => a - b);
-          let index = Math.round((columnValues.length - 1) * (playerArray[0][column] - columnValues[0]) / (columnValues[columnValues.length - 1] - columnValues[0]));
-          index = Math.max(index, 0);
-          index = Math.min(index, columnValues.length - 1);
-          percentileArray[column] = Math.round(100 * index / (columnValues.length - 1));
-        } else {
-          percentileArray[column] = playerArray[0][column] === "" ? "blank" : playerArray[0][column];
+    if (playerArray.length === 0);
+    for (const column of Object.keys(playerArray[0])) {
+      let value = playerArray[0][column];
+      if (typeof value === 'string' && value.endsWith('%')) {
+        value = parseFloat(value.slice(0, -1));
+        playerArray[0][column] = value;
+      }
+      if (!isNaN(value)) {
+        const columnValues = allPlayersArray.map((row) => row[column]).filter(val => val !== '');
+        for (let i = 0; i < columnValues.length; i++) {
+          let val = columnValues[i];
+          if (typeof val === 'string' && val.endsWith('%')) {
+            val = parseFloat(val.slice(0, -1));
+            allPlayersArray[i][column] = val;
+          }
         }
+        columnValues.sort((a, b) => a - b);
+        let index = Math.round((columnValues.length - 1) * (value - columnValues[0]) / (columnValues[columnValues.length - 1] - columnValues[0]));
+        index = Math.max(0, Math.min(index, columnValues.length - 1));
+        percentileArray[column] = 100 * index / (columnValues.length - 1);
+      } else {
+        percentileArray[column] = value === "" ? "blank" : value;
       }
     }
 
@@ -158,16 +196,32 @@ const Summary = () => {
     for (const column of Object.keys(percentileArray)) {
       if (!isNaN(percentileArray[column])) {
         let grade;
-        if (percentileArray[column] >= 0.9) {
-          grade = 'A';
-        } else if (percentileArray[column] >= 0.8) {
-          grade = 'B';
-        } else if (percentileArray[column] >= 0.7) {
-          grade = 'C';
-        } else if (percentileArray[column] >= 0.6) {
-          grade = 'D';
+        if (percentileArray[column] >= 95) {
+          grade = "A+";
+        } else if (percentileArray[column] >= 90) {
+          grade = "A";
+        } else if (percentileArray[column] >= 80) {
+          grade = "A-";
+        } else if (percentileArray[column] >= 74) {
+          grade = "B+";
+        } else if (percentileArray[column] >= 66) {
+          grade = "B";
+        } else if (percentileArray[column] >= 60) {
+          grade = "B-";
+        } else if (percentileArray[column] >= 54) {
+          grade = "C+";
+        } else if (percentileArray[column] >= 46) {
+          grade = "C";
+        } else if (percentileArray[column] >= 40) {
+          grade = "C-";
+        } else if (percentileArray[column] >= 34) {
+          grade = "D+";
+        } else if (percentileArray[column] >= 26) {
+          grade = "D";
+        } else if (percentileArray[column] >= 20) {
+          grade = "D-";
         } else {
-          grade = 'F';
+          grade = "F";
         }
         gradesArray[column] = grade;
       } else {
