@@ -12,6 +12,7 @@
 
 html {
   background: #222222;
+  color: #fff;
 }
 
 .MuiButton-outlinedSecondary {
@@ -22,14 +23,17 @@ html {
 
 .MuiOutlinedInput-root {
   background-color: #444;
+  color: #fff;
 }
 
 .MuiAutocomplete-root {
   background-color: #444;
+  color: #fff;
 }
 
 .MuiPaper-root {
   background-color: #444;
+  color: #fff;
 }
 
 .MuiInputLabel-outlined, .MuiAutocomplete-inputRoot, .MuiOutlinedInput-input {
