@@ -6,28 +6,28 @@ import { StyledEngineProvider } from '@mui/material/styles';
 
 
 const useStyles = makeStyles({
-  root: {
-    background: "rgba(0, 0, 0, 0.10)",
-    color: "rgba(0, 0, 0, 0.87)",
-  },
-  btn: {
-    "& .MuiButton-root": {
-      border: "1px solid #B5BABE",
+    root: {
+        background: "rgba(0, 0, 0, 0.10)",
+        color: "rgba(0, 0, 0, 0.87)",
     },
-    "& .MuiButton-root:not(:last-child)": {
-      borderRight: "none",
+    btn: {
+        "& .MuiButton-root": {
+            border: "1px solid #B5BABE",
+        },
+        "& .MuiButton-root:not(:last-child)": {
+            borderRight: "none",
+        },
     },
-  },
 });
 
 export default function App({ Component, pageProps }) {
-  let [selectedSummary, setSelectedSummary] = useState(false);
-  let [selectedQuickView, setSelectedQuickView] = useState(false);
-  let [selectedFullData, setSelectedFullData] = useState(false);
-  const classes = useStyles();
+    let [selectedSummary, setSelectedSummary] = useState(false);
+    let [selectedQuickView, setSelectedQuickView] = useState(false);
+    let [selectedFullData, setSelectedFullData] = useState(false);
+    const classes = useStyles();
 
     return (
-        <StyledEngineProvider>
+        <StyledEngineProvider injectFirst >
             <div>
                 <div className="mt-4 text-black/[.54]">
                     <Grid container justifyContent="center">

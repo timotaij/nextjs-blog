@@ -10,6 +10,7 @@ import PlayerHeadshot from './PlayerHeadshot';
 import TeamSpons from './TeamName';
 import {GradeOutlined} from "@mui/icons-material";
 import IndexLogo from "./BballIndexLogo";
+import { StyledEngineProvider } from '@mui/material/styles';
 
 
 
@@ -269,6 +270,7 @@ const QuickView = () => {
   const half = Math.ceil(data.length/2);
 
   return (
+      <StyledEngineProvider injectFirst>
       <div css={css`display:flex; flex-direction:column;`}>
         <>
           <Autocomplete
@@ -516,6 +518,7 @@ const QuickView = () => {
             </>
         )}
       </div>
+</StyledEngineProvider>
   );
 };
 
