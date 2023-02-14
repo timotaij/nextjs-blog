@@ -59,3 +59,12 @@ html {
   background-color: #444;
   color: white;
 }
+[aria-owns="player-search-listbox"] {
+  background-color: #444;
+  color: #fff;
+}
+
+[aria-owns="player-search-listbox"] {
+  background-color: #444;
+  color: #fff;
+}
