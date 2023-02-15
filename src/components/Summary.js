@@ -271,7 +271,6 @@ const Summary = () => {
 
   return (
       <StyledEngineProvider injectFirst>
-        <ThemeProvider theme = {muiTheme}>
       <div css={css`display:flex; flex-direction:column;`}>
         <>
           <Autocomplete
@@ -519,7 +518,6 @@ const Summary = () => {
             </>
         )}
       </div>
-          </ThemeProvider>
       </StyledEngineProvider>
   );
 };
