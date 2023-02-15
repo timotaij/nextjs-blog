@@ -271,7 +271,6 @@ const FullData = () => {
 
   return (
       <StyledEngineProvider injectFirst>
-        <themeProvider theme = {muiTheme}>
       <div css={css`display:flex; flex-direction:column;`}>
         <>
           <Autocomplete
@@ -519,7 +518,6 @@ const FullData = () => {
             </>
         )}
       </div>
-        </themeProvider>
         </StyledEngineProvider>
   );
 };
