@@ -59,7 +59,7 @@ const checkColor = (value) => {
     : "#4CAF50";
 };
 
-const Card = ({ data }) => {
+const Card = ({ data, depth }) => {
   return (
     <Paper elevation={1}>
       <div className="rounded-t bg-[#6F263D] text-white flex py-1 items-center w-full">
@@ -87,42 +87,25 @@ const Card = ({ data }) => {
             </TableRow>
           </TableHead>
           <TableBody>
-            {/* {rows.map((row) => (
-                <StyledTableRow key={row.stat + row.value + row.percentile}>
+            {data.stats
+              .filter((row) => row[0] <= depth)
+              .map((row) => (
+                <StyledTableRow key={row[1]}>
                   <StyledTableCell component="th" scope="row">
-                    {row.stat}
+                    {row[1]}
                   </StyledTableCell>
-                  <StyledTableCell align="center">{row.value}</StyledTableCell>
-                  <StyledTableCell align="center">
-                    {row.percentile}%
-                  </StyledTableCell>
+                  <StyledTableCell align="center">{row[2]}</StyledTableCell>
+                  <StyledTableCell align="center">{row[3]}</StyledTableCell>
                   <StyledTableCell
                     align="center"
                     sx={{
-                      backgroundColor: "rgb(76, 175, 80)",
+                      backgroundColor: checkColor(row[4]),
                     }}
                   >
-                    {row.vsaverage}%
+                    {row[4]}
                   </StyledTableCell>
                 </StyledTableRow>
-              ))} */}
-            {data.stats.map((row) => (
-              <StyledTableRow key={row[0]}>
-                <StyledTableCell component="th" scope="row">
-                  {row[0]}
-                </StyledTableCell>
-                <StyledTableCell align="center">{row[1]}</StyledTableCell>
-                <StyledTableCell align="center">{row[2]}</StyledTableCell>
-                <StyledTableCell
-                  align="center"
-                  sx={{
-                    backgroundColor: checkColor(row[3]),
-                  }}
-                >
-                  {row[3]}
-                </StyledTableCell>
-              </StyledTableRow>
-            ))}
+              ))}
           </TableBody>
         </Table>
       </TableContainer>
