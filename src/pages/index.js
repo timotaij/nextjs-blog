@@ -5,6 +5,7 @@ import {
   Grid,
   TextField,
 } from "@mui/material";
+
 import Container from "@mui/material/Container";
 import { makeStyles } from "@mui/styles";
 import Head from "next/head";
@@ -16,7 +17,7 @@ import QuickView from "../components/QuickView";
 import Summary from "../components/Summary";
 const useStyles = makeStyles({
   root: {
-    background: "rgba(0, 0, 0, 0.10)",
+    background: "rgba(0, 0, 0, 0.11)",
     color: "rgba(0, 0, 0, 0.87)",
   },
   btn: {

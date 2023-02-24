@@ -1557,7 +1557,7 @@ const FullDataTable = (currentPlayer, percentileScores, playerGrades) => {
       ],
     },
     {
-      title: "DK Fantasy Stats",
+      title: "DK Fantasy",
       vsaverage: false,
       stats: [
         [
