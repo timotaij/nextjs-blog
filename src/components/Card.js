@@ -52,7 +52,7 @@ const checkColor = (value) => {
   return value === undefined ||
     value === null ||
     value === "" ||
-    value.length > 4
+    value?.length > 4
     ? ""
     : letterColorCodes[value] !== undefined
     ? letterColorCodes[value]

@@ -9,7 +9,7 @@ const Summary = ({ cardData }) => {
   useEffect(() => {
     setTimeout(() => {
       setIsLoading(false);
-    }, 1000);
+    }, 650);
   }, []);
 
   return isLoading ? (

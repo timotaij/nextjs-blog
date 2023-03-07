@@ -9,7 +9,7 @@ const QuickView = ({ cardData }) => {
   useEffect(() => {
     setTimeout(() => {
       setIsLoading(false);
-    }, 1250);
+    }, 650);
   }, []);
 
   return isLoading ? (

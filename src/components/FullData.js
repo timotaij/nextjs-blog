@@ -8,7 +8,7 @@ const FullData = ({ cardData }) => {
   useEffect(() => {
     setTimeout(() => {
       setIsLoading(false);
-    }, 750);
+    }, 650);
   }, []);
 
   return isLoading ? (
