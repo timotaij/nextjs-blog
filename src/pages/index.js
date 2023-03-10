@@ -18,6 +18,8 @@ import FullData from "../components/FullData";
 import FullDataTable from "../components/FullDataTable";
 import QuickView from "../components/QuickView";
 import Summary from "../components/Summary";
+import TeamColor1 from "../components/TeamColor1";
+import TeamColor2 from "../components/TeamColor2";
 const useStyles = makeStyles({
   root: {
     background: "rgba(0, 0, 0, 0.10)",
@@ -49,7 +51,6 @@ export default function Home() {
   const [combinedData, setCombinedData] = useState({});
   const [yearsOfExperience, setYearsOfExperience] = useState([1,22])
   const [Age, setAge] = useState([17,43])
-  const [sAge, setsAge] = useState([17,43])
   const [playerGradesArray, setPlayerGradesArray] = useState({});
   const [filterSeasons] = useState(["2013-14", "2014-15", "2015-16", "2016-17", "2017-18", "2018-19","2019-20","2020-21","2021-22","2022-23"]);
   const [offensePositions] = useState(["PG", "SG", "SF", "PF", "C"]);
@@ -194,7 +195,12 @@ export default function Home() {
         })
         .map(([_, second]) => second)
     );
+    console.log(yearsOfExperience)
+    console.log(minutesPlayed)
+    console.log(Age)
+    console.log(filteredPlayers)
   };
+
 
   useEffect(() => {
     if (!currentPlayerPick || !filteredPlayers?.length || !filteredPlayers)
@@ -569,23 +575,31 @@ export default function Home() {
                 {showFilters && (
                     <div className="flex flex-col md:flex-row items-center justify-between md:py-1">
                       <div className="my-1 md:my-0 md:mx-1">
-                        <Box sx={{ width: 250 }}>
-                          <Typography gutterBottom>Minutes</Typography>
-                        <Slider
-                            getAriaLabel={() => 'MinutesPlayed'}
-                            value={minutesPlayed}
-                            min={0}
-                            step={1}
-                            max={4000}
+                        <Autocomplete
+                            id="defensive-roles-filter"
+                            options={defensiveRoles}
                             onChange={(event, selection) => {
                               setSelectedOptions({
                                 ...selectedOptions,
-                                minutesPlayed: selection,
-                              });}}
-                            valueLabelDisplay="auto"
-                            getAriaValueText={valuetext}
+                                defensiveRoles: selection,
+                              });
+                              hideCards();
+                            }}
+                            multiple
+                            sx={{ width: 300 }}
+                            renderInput={(params) => (
+                                <TextField
+                                    {...params}
+                                    label="Defensive Roles Filter"
+                                    variant="outlined"
+                                    sx={{
+                                      bgcolor: "grey.200",
+                                      borderRadius: "5px",
+                                      fontWeight: "bold",
+                                    }}
+                                />
+                            )}
                         />
-                        </Box>
                       </div>
                       <div className="my-1 md:my-0 md:mx-1">
                         <Autocomplete
@@ -613,48 +627,6 @@ export default function Home() {
                                 />
                             )}
                         />
-                      </div>
-                    </div>
-                )}
-                {showFilters && (
-                    <div className="flex flex-col md:flex-row items-center justify-between md:py-1">
-                      <div className="my-1 md:my-0 md:mx-1">
-                        <Box sx={{ width: 250 }}>
-                          <Typography gutterBottom>Years of Experience</Typography>
-                          <Slider
-                              getAriaLabel={() => 'MinutesPlayed'}
-                              value={yearsOfExperience}
-                              min={1}
-                              step={1}
-                              max={23}
-                              onChange={(event, selection) => {
-                                setSelectedOptions({
-                                  ...selectedOptions,
-                                  yearsOfExperience: selection,
-                                });}}
-                              valueLabelDisplay="auto"
-                              getAriaValueText={valuetext}
-                          />
-                        </Box>
-                      </div>
-                      <div className="my-1 md:my-0 md:mx-1">
-                        <Box sx={{ width: 250 }}>
-                          <Typography gutterBottom>Age</Typography>
-                          <Slider
-                              getAriaLabel={() => 'MinutesPlayed'}
-                              value={Age}
-                              min={17}
-                              step={1}
-                              max={43}
-                              onChange={(event, selection) => {
-                                setSelectedOptions({
-                                  ...selectedOptions,
-                                  Age: selection,
-                                });}}
-                              valueLabelDisplay="auto"
-                              getAriaValueText={valuetext}
-                          />
-                        </Box>
                       </div>
                     </div>
                 )}
@@ -749,9 +721,9 @@ export default function Home() {
                   marginTop: "2rem",
                 }}
               >
-                {selectedSummary && <Summary cardData={cardData} />}
-                {selectedQuickView && <QuickView cardData={cardData} />}
-                {selectedFullData && <FullData cardData={cardData} />}
+                {selectedSummary && <Summary cardData={cardData} titleRowColor1={TeamColor1({ teamName: currentPlayerPick.stats[0]['Team(s)'].slice(-3) })} topRowColor1={TeamColor2({ teamName: currentPlayerPick.stats[0]['Team(s)'].slice(-3) })} />}
+                {selectedQuickView && <QuickView cardData={cardData} titleRowColor1={TeamColor1({ teamName: currentPlayerPick.stats[0]['Team(s)'].slice(-3) })} topRowColor1={TeamColor2({ teamName: currentPlayerPick.stats[0]['Team(s)'].slice(-3) })} />}
+                {selectedFullData && <FullData cardData={cardData} titleRowColor1={TeamColor1({ teamName: currentPlayerPick.stats[0]['Team(s)'].slice(-3) })} topRowColor1={TeamColor2({ teamName: currentPlayerPick.stats[0]['Team(s)'].slice(-3) })} />}
               </Container>
             )}
           </main>

@@ -9,9 +9,9 @@ import TableCell, { tableCellClasses } from "@mui/material/TableCell";
 import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 
-const StyledTableCell = styled(TableCell)(() => ({
+const StyledTableCell = styled(TableCell)(({ topRowColor }) => ({
   [`&.${tableCellClasses.head}`]: {
-    backgroundColor: "rgb(4, 30, 66)",
+    backgroundColor: topRowColor,
     fontWeight: "bold",
     color: "white",
     padding: 8,
@@ -50,39 +50,37 @@ const letterColorCodes = {
 };
 const checkColor = (value) => {
   return value === undefined ||
-    value === null ||
-    value === "" ||
-    value?.length > 4
-    ? ""
-    : letterColorCodes[value] !== undefined
-    ? letterColorCodes[value]
-    : "#4CAF50";
+  value === null ||
+  value === "" ||
+  value?.length > 4
+      ? ""
+      : letterColorCodes[value] !== undefined
+          ? letterColorCodes[value]
+          : "#4CAF50";
 };
 
-const Card = ({ data, depth }) => {
+const Card = ({ data, depth, titleRowColor, topRowColor }) => {
   return (
-    <Paper elevation={1}>
-      <div className="rounded-t bg-[#6F263D] text-white flex py-1 items-center w-full">
-        <div className="flex mx-1">
-          <Button size="small" sx={{ color: "white", borderRadius: 8 }}>
-            <Tooltip title="Screenshot stats" placement="top">
-              <CameraAltIcon />
-            </Tooltip>
-          </Button>
+      <Paper elevation={1}>
+        <div className="rounded-t flex py-1 items-center w-full" style={{ backgroundColor: titleRowColor, color: "white" }}>
+          <div style={{ marginRight: "5px"}}>
+            <Button size="small" sx={{ color: "white", borderRadius: 8 }}>
+              <Tooltip title="Screenshot stats" placement="top">
+                <CameraAltIcon />
+              </Tooltip>
+            </Button>
+          </div>
+          <div style={{ fontWeight: "bold", flexGrow: 1, textAlign: "center" }}>{data.title}</div>
         </div>
-        <div className="mx-1 flex grow justify-center">
-          <div className="font-bold">{data.title}</div>
-        </div>
-      </div>
-      <TableContainer sx={{ overflowX: "hidden" }}>
-        <Table aria-label="customized table">
-          <TableHead>
-            <TableRow>
-              <StyledTableCell align="left">STATISTIC</StyledTableCell>
-              <StyledTableCell align="center">VALUE</StyledTableCell>
-              <StyledTableCell align="center">PERCENTILE</StyledTableCell>
-              <StyledTableCell align="center">
-                {data.vsaverage ? "VS AVERAGE" : "GRADE"}
+        <TableContainer sx={{ overflowX: "hidden" }}>
+          <Table aria-label="customized table">
+            <TableHead>
+              <TableRow>
+                <StyledTableCell align="left" topRowColor={topRowColor}>STATISTIC</StyledTableCell>
+                <StyledTableCell align="center" topRowColor={topRowColor}>VALUE</StyledTableCell>
+                <StyledTableCell align="center" topRowColor={topRowColor}>PERCENTILE</StyledTableCell>
+                <StyledTableCell align="center" topRowColor={topRowColor}>
+                  {data.vsaverage ? "VS AVERAGE" : "GRADE"}
               </StyledTableCell>
             </TableRow>
           </TableHead>
