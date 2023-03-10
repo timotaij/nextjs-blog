@@ -1,12 +1,9 @@
 import {
   Autocomplete,
-  Slider,
   Button,
   ButtonGroup,
   Grid,
   TextField,
-    Typography,
-  Box,
 } from "@mui/material";
 import Container from "@mui/material/Container";
 import { makeStyles } from "@mui/styles";
@@ -47,53 +44,28 @@ export default function Home() {
   const [currentPlayer, setCurrentPlayer] = useState();
   const [currentPlayerPick, setCurrentPlayerPick] = useState();
   const [combinedData, setCombinedData] = useState({});
-  const [yearsOfExperience, setYearsOfExperience] = useState([1,22])
-  const [Age, setAge] = useState([17,43])
-  const [sAge, setsAge] = useState([17,43])
   const [playerGradesArray, setPlayerGradesArray] = useState({});
-  const [filterSeasons] = useState(["2013-14", "2014-15", "2015-16", "2016-17", "2017-18", "2018-19","2019-20","2020-21","2021-22","2022-23"]);
   const [offensePositions] = useState(["PG", "SG", "SF", "PF", "C"]);
-  const [defensiveRoles] = useState(
-      ["Point of Attack",
-      "Wing Stopper",
-      "Helper",
-      "Chaser",
-      "Anchor Big",
-      "Mobile Big",
-        "Low Activity",
-        "Low Minute",]);
-  const [advancedPositions] = useState(["On-Ball Guard", "Off-Ball Guard", "On-Ball Wing", "Off-Ball Wing", "On-Ball Big", "Off-Ball Big", "Low Minute"]);
   const [offensiveArchetypes] = useState([
-    "Shot Creator",
-        "Slasher",
-       "Primary Ball Handler",
-       "Secondary Ball Handler",
-       "Off Screen Shooter",
-       "Movement Shooter",
-       "Stationary Shooter",
-       "Athletic Finisher",
-       "Versatile Big",
-       "Post Scorer",
-      "Stretch Big",
-      "Roll + Cut Big",
+    { title: "Shot Creator", category: "On-Ball Guards/Wings" },
+    { title: "Slasher", category: "On-Ball Guards/Wings" },
+    { title: "Primary Ball Handler", category: "On-Ball Guards/Wings" },
+    { title: "Secondary Ball Handler", category: "On-Ball Guards/Wings" },
+    { title: "Off Screen Shooter", category: "Off-Ball Guards/Wings" },
+    { title: "Movement Shooter", category: "Off-Ball Guards/Wings" },
+    { title: "Stationary Shooter", category: "Off-Ball Guards/Wings" },
+    { title: "Athletic Finisher", category: "Off-Ball Guards/Wings" },
+    { title: "Versatile Big, Post Scorer, Stretch Big", category: "Bigs" },
+    { title: "Post Scorer", category: "Bigs" },
+    { title: "Stretch Big", category: "Bigs" },
+    { title: "Roll + Cut Big", category: "Bigs" },
   ]);
-  const [minutesPlayed, setMinutesPlayed] = useState([0,4000]);
   const [selectedOptions, setSelectedOptions] = useState({
     offensePositions: [],
+    advancedPositions: [],
     offensiveArchetypes: [],
     Seasons: [],
-    filterSeasons: [],
-    defensiveRoles: [],
-    advancedPositions: [],
-    minutesPlayed: [],
-    yearsOfExperience: [],
-    Age:[],
   });
-
-
-  function valuetext(value) {
-    return `${value}°C`;
-  }
 
   const hideCards = () => {
     setSelectedSummary(false);
@@ -177,19 +149,13 @@ export default function Home() {
             (!selectedOptions.advancedPositions?.length ||
               selectedOptions.advancedPositions.includes(
                 player[1]["Advanced Position"]
-              ))  &&
-            (!selectedOptions.defensiveRoles?.length ||
-                selectedOptions.defensiveRoles.includes(
-                    player[1]["Defensive Role"]
-                )) &&
-            (!selectedOptions.offensiveArchetypes?.length ||
-                selectedOptions.offensiveArchetypes.includes(
-                    player[1]["Offensive Archetype"]
               )) &&
-            (!selectedOptions.filterSeasons?.length ||
-                selectedOptions.filterSeasons.includes(
-                    player[1]["Season"]
-                ))
+            (!selectedOptions.offensiveArchetypes?.length ||
+              selectedOptions.offensiveArchetypes.find((archetype) =>
+                archetype.title.includes(player[1]["Offensive Archetype"])
+              )) &&
+            (!selectedOptions.Seasons?.length ||
+              selectedOptions.Seasons.includes(player[1]["Season"]))
           );
         })
         .map(([_, second]) => second)
@@ -212,26 +178,20 @@ export default function Home() {
       Object.entries(players)
         .filter((player) => {
           return (
-              (!selectedOptions.offensePositions?.length ||
-                  selectedOptions.offensePositions.includes(
-                      player[1]["Offense Position"]
-                  )) &&
-              (!selectedOptions.advancedPositions?.length ||
-                  selectedOptions.advancedPositions.includes(
-                      player[1]["Advanced Position"]
-                  ))  &&
-              (!selectedOptions.defensiveRoles?.length ||
-                  selectedOptions.defensiveRoles.includes(
-                      player[1]["Defensive Role"]
-                  )) &&
-              (!selectedOptions.offensiveArchetypes?.length ||
-                  selectedOptions.offensiveArchetypes.includes(
-                      player[1]["Offensive Archetype"]
-                  )) &&
-              (!selectedOptions.filterSeasons?.length ||
-                  selectedOptions.filterSeasons.includes(
-                      player[1]["Season"]
-                  ))
+            (!selectedOptions.offensePositions?.length ||
+              selectedOptions.offensePositions.includes(
+                player[1]["Offense Position"]
+              )) &&
+            (!selectedOptions.advancedPositions?.length ||
+              selectedOptions.advancedPositions.includes(
+                player[1]["Advanced Position"]
+              )) &&
+            (!selectedOptions.offensiveArchetypes?.length ||
+              selectedOptions.offensiveArchetypes.find((archetype) =>
+                archetype.title.includes(player[1]["Offensive Archetype"])
+              )) &&
+            (!selectedOptions.Seasons.length ||
+              selectedOptions.Seasons.includes(player[1]["Season"]))
           );
         })
         .map(([_, second]) => second)
@@ -409,7 +369,7 @@ export default function Home() {
                   </div>
                   <div className="my-1 md:my-0 md:mx-1">
                     <Autocomplete
-                      id="player-season-filter"
+                      id="season-filter"
                       options={currentPlayer?.stats?.map((data) => data.Season)}
                       getOptionLabel={(option) => option}
                       onChange={(event, selection) => {
@@ -431,7 +391,7 @@ export default function Home() {
                       renderInput={(params) => (
                         <TextField
                           {...params}
-                          label="player Seasons Filter"
+                          label="Seasons Filter"
                           variant="outlined"
                           sx={{
                             bgcolor: "grey.200",
@@ -452,13 +412,13 @@ export default function Home() {
                   <div className="flex flex-col md:flex-row items-center justify-between md:py-1">
                     <div className="my-1 md:my-0 md:mx-1">
                       <Autocomplete
-                        id="Seasons"
-                        options={filterSeasons}
+                        id="offense-position-filter"
+                        options={offensePositions}
                         getOptionLabel={(option) => option}
                         onChange={(event, selection) => {
                           setSelectedOptions({
                             ...selectedOptions,
-                            filterSeasons: selection,
+                            offensePositions: selection,
                           });
                           hideCards();
                         }}
@@ -467,7 +427,7 @@ export default function Home() {
                         renderInput={(params) => (
                           <TextField
                             {...params}
-                            label="Seasons Filter"
+                            label="Offense Position Filter"
                             variant="outlined"
                             sx={{
                               bgcolor: "grey.200",
@@ -481,7 +441,9 @@ export default function Home() {
                     <div className="my-1 md:my-0 md:mx-1">
                       <Autocomplete
                         id="offensive-archetype-filter"
-                        options={offensiveArchetypes}
+                        options={offensiveArchetypes.map((option) => option)}
+                        groupBy={(option) => option.category}
+                        getOptionLabel={(option) => option.title}
                         onChange={(event, selection) => {
                           setSelectedOptions({
                             ...selectedOptions,
@@ -506,157 +468,6 @@ export default function Home() {
                       />
                     </div>
                   </div>
-                )}
-                {showFilters && (
-                    <div className="flex flex-col md:flex-row items-center justify-between md:py-1">
-                      <div className="my-1 md:my-0 md:mx-1">
-                        <Autocomplete
-                            id="offense-position-filter"
-                            options={offensePositions}
-                            getOptionLabel={(option) => option}
-                            onChange={(event, selection) => {
-                              setSelectedOptions({
-                                ...selectedOptions,
-                                offensePositions: selection,
-                              });
-                              hideCards();
-                            }}
-                            multiple
-                            sx={{ width: 300 }}
-                            renderInput={(params) => (
-                                <TextField
-                                    {...params}
-                                    label="Offense Position Filter"
-                                    variant="outlined"
-                                    sx={{
-                                      bgcolor: "grey.200",
-                                      borderRadius: "5px",
-                                      fontWeight: "bold",
-                                    }}
-                                />
-                            )}
-                        />
-                      </div>
-                      <div className="my-1 md:my-0 md:mx-1">
-                        <Autocomplete
-                            id="advanced-positions-filter"
-                            options={advancedPositions}
-                            onChange={(event, selection) => {
-                              setSelectedOptions({
-                                ...selectedOptions,
-                                advancedPositions: selection,
-                              });
-                              hideCards();
-                            }}
-                            multiple
-                            sx={{ width: 300 }}
-                            renderInput={(params) => (
-                                <TextField
-                                    {...params}
-                                    label="Advanced Positions Filter"
-                                    variant="outlined"
-                                    sx={{
-                                      bgcolor: "grey.200",
-                                      borderRadius: "5px",
-                                      fontWeight: "bold",
-                                    }}
-                                />
-                            )}
-                        />
-                      </div>
-                    </div>
-                )}
-                {showFilters && (
-                    <div className="flex flex-col md:flex-row items-center justify-between md:py-1">
-                      <div className="my-1 md:my-0 md:mx-1">
-                        <Box sx={{ width: 250 }}>
-                          <Typography gutterBottom>Minutes</Typography>
-                        <Slider
-                            getAriaLabel={() => 'MinutesPlayed'}
-                            value={minutesPlayed}
-                            min={0}
-                            step={1}
-                            max={4000}
-                            onChange={(event, selection) => {
-                              setSelectedOptions({
-                                ...selectedOptions,
-                                minutesPlayed: selection,
-                              });}}
-                            valueLabelDisplay="auto"
-                            getAriaValueText={valuetext}
-                        />
-                        </Box>
-                      </div>
-                      <div className="my-1 md:my-0 md:mx-1">
-                        <Autocomplete
-                            id="defensive-roles-filter"
-                            options={defensiveRoles}
-                            onChange={(event, selection) => {
-                              setSelectedOptions({
-                                ...selectedOptions,
-                                defensiveRoles: selection,
-                              });
-                              hideCards();
-                            }}
-                            multiple
-                            sx={{ width: 300 }}
-                            renderInput={(params) => (
-                                <TextField
-                                    {...params}
-                                    label="Defensive Roles Filter"
-                                    variant="outlined"
-                                    sx={{
-                                      bgcolor: "grey.200",
-                                      borderRadius: "5px",
-                                      fontWeight: "bold",
-                                    }}
-                                />
-                            )}
-                        />
-                      </div>
-                    </div>
-                )}
-                {showFilters && (
-                    <div className="flex flex-col md:flex-row items-center justify-between md:py-1">
-                      <div className="my-1 md:my-0 md:mx-1">
-                        <Box sx={{ width: 250 }}>
-                          <Typography gutterBottom>Years of Experience</Typography>
-                          <Slider
-                              getAriaLabel={() => 'MinutesPlayed'}
-                              value={yearsOfExperience}
-                              min={1}
-                              step={1}
-                              max={23}
-                              onChange={(event, selection) => {
-                                setSelectedOptions({
-                                  ...selectedOptions,
-                                  yearsOfExperience: selection,
-                                });}}
-                              valueLabelDisplay="auto"
-                              getAriaValueText={valuetext}
-                          />
-                        </Box>
-                      </div>
-                      <div className="my-1 md:my-0 md:mx-1">
-                        <Box sx={{ width: 250 }}>
-                          <Typography gutterBottom>Age</Typography>
-                          <Slider
-                              getAriaLabel={() => 'MinutesPlayed'}
-                              value={Age}
-                              min={17}
-                              step={1}
-                              max={43}
-                              onChange={(event, selection) => {
-                                setSelectedOptions({
-                                  ...selectedOptions,
-                                  Age: selection,
-                                });}}
-                              valueLabelDisplay="auto"
-                              getAriaValueText={valuetext}
-                          />
-                        </Box>
-                      </div>
-                    </div>
                 )}
                 {currentPlayer && (
                   <div className="flex justify-center my-1">
