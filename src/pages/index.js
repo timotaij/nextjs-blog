@@ -49,6 +49,7 @@ export default function Home() {
   const [combinedData, setCombinedData] = useState({});
   const [yearsOfExperience, setYearsOfExperience] = useState([1,22])
   const [Age, setAge] = useState([17,43])
+  const [sAge, setsAge] = useState([17,43])
   const [playerGradesArray, setPlayerGradesArray] = useState({});
   const [filterSeasons] = useState(["2013-14", "2014-15", "2015-16", "2016-17", "2017-18", "2018-19","2019-20","2020-21","2021-22","2022-23"]);
   const [offensePositions] = useState(["PG", "SG", "SF", "PF", "C"]);
