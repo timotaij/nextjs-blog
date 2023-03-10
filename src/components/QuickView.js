@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 import { BeatLoader } from "react-spinners";
 import Card from "./Card";
 
-const QuickView = ({ cardData }) => {
+const QuickView = ({ cardData, topRowColor1, titleRowColor1 }) => {
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
@@ -13,15 +13,15 @@ const QuickView = ({ cardData }) => {
   }, []);
 
   return isLoading ? (
-    <BeatLoader color={"#6F263D"} />
+      <BeatLoader color={"#6F263D"} />
   ) : (
-    <Grid container spacing={3}>
-      {cardData.map((data, index) => (
-        <Grid item xs={12} md={6} key={data.title + index}>
-          <Card data={data} depth={2} />
-        </Grid>
-      ))}
-    </Grid>
+      <Grid container spacing={3}>
+        {cardData.map((data, index) => (
+            <Grid item xs={12} md={6} key={data.title + index}>
+              <Card data={data} depth={2} topRowColor={topRowColor1} titleRowColor={titleRowColor1} />
+            </Grid>
+        ))}
+      </Grid>
   );
 };
 
