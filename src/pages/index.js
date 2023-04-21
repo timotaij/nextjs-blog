@@ -377,7 +377,22 @@ export default function Home() {
                     <Autocomplete
                       id="player-search"
                       options={Object.keys(combinedData)}
-                      getOptionLabel={(option) => option}
+                      getOptionLabel={(option) => (
+                          <div className="flex items-center">
+                            <span>{option.replace(/\d+/g, '')}</span>
+                            {option.match(/\d+/) && (
+                                <>
+                                  <span className="mx-1"> </span>
+                                  <img
+                                      src={`https://ak-static.cms.nba.com/wp-content/uploads/headshots/nba/latest/260x190/${option.match(/\d+/)}.png`}
+                                      alt={option.replace(/\d+/g, '')}
+                                      width={40}
+                                      height={40}
+                                  />
+                                </>
+                            )}
+                          </div>
+                      )}
                       onChange={(event, value) => {
                         setShowCards(false);
                         console.log(value);
