@@ -437,7 +437,7 @@ export default function Home() {
                       renderInput={(params) => (
                         <TextField
                           {...params}
-                          label="player Season Filter"
+                          label="Player Season"
                           variant="outlined"
                           sx={{
                             bgcolor: "grey.200",
