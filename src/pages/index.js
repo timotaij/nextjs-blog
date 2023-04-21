@@ -29,6 +29,9 @@ const useStyles = makeStyles({
     "& .MuiButton-root": {
       border: "1px solid #B5BABE",
     },
+    "& .active-tab": {
+      backgroundColor: "#FFFFFF",
+    },
     "& .MuiButton-root:not(:last-child)": {
       borderRight: "none",
     },
@@ -677,33 +680,33 @@ export default function Home() {
                       className={classes.btn}
                     >
                       <Button
-                        className={selectedSummary ? classes.root : ""}
-                        onClick={() => {
-                          setSelectedSummary(true);
-                          setSelectedQuickView(false);
-                          setSelectedFullData(false);
-                        }}
+                          className={`${classes.root} ${selectedSummary ? "active-tab" : ""}`}
+                          onClick={() => {
+                            setSelectedSummary(true);
+                            setSelectedQuickView(false);
+                            setSelectedFullData(false);
+                          }}
                       >
                         Summary
                       </Button>
                       <Button
-                        className={selectedQuickView ? classes.root : ""}
-                        onClick={() => {
-                          setSelectedSummary(false);
-                          setSelectedQuickView(true);
-                          setSelectedFullData(false);
-                        }}
-                        sx={{ borderRadius: 0 }}
+                          className={`${classes.root} ${selectedQuickView ? "active-tab" : ""}`}
+                          onClick={() => {
+                            setSelectedSummary(false);
+                            setSelectedQuickView(true);
+                            setSelectedFullData(false);
+                          }}
+                          sx={{ borderRadius: 0 }}
                       >
                         Quick View
                       </Button>
                       <Button
-                        className={selectedFullData ? classes.root : ""}
-                        onClick={() => {
-                          setSelectedSummary(false);
-                          setSelectedQuickView(false);
-                          setSelectedFullData(true);
-                        }}
+                          className={`${classes.root} ${selectedFullData ? "active-tab" : ""}`}
+                          onClick={() => {
+                            setSelectedSummary(false);
+                            setSelectedQuickView(false);
+                            setSelectedFullData(true);
+                          }}
                       >
                         Full Data
                       </Button>
