@@ -377,29 +377,35 @@ export default function Home() {
                     <Autocomplete
                       id="player-search"
                       options={Object.keys(combinedData)}
-                      getOptionLabel={(option) => (
-                          <div className="flex items-center">
-                            <span>{option.replace(/\d+/g, '')}</span>
-                            {option.match(/\d+/) && (
-                                <>
-                                  <span className="mx-1"> </span>
-                                  <img
-                                      src={`https://ak-static.cms.nba.com/wp-content/uploads/headshots/nba/latest/260x190/${option.match(/\d+/)}.png`}
-                                      alt={option.replace(/\d+/g, '')}
-                                      width={40}
-                                      height={40}
-                                  />
-                                </>
-                            )}
-                          </div>
+                      getOptionLabel={(option) => option.replace(/\d+/g, '')}
+                      renderOption={(props, option) => (
+                          <li {...props} key={option}>
+                            <div className="flex items-center">
+                              <span>{option.replace(/\d+/g, '')}</span>
+                              {option.match(/\d+/) && (
+                                  <>
+                                    <span className="mx-1"> </span>
+                                    <img
+                                        src={`https://ak-static.cms.nba.com/wp-content/uploads/headshots/nba/latest/260x190/${option.match(/\d+/)}.png`}
+                                        alt={option.replace(/\d+/g, '')}
+                                        width={40}
+                                        height={40}
+                                    />
+                                  </>
+                              )}
+
+                            </div>
+                          </li>
                       )}
                       onChange={(event, value) => {
                         setShowCards(false);
                         console.log(value);
+                        if (value)
+                        {
                         setCurrentPlayer({
                           playerId: value,
                           stats: combinedData[value],
-                        });
+                        })};
 
                         if (currentPlayerPick) {
                           const filteredStats = currentPlayer.stats.filter(
@@ -414,20 +420,22 @@ export default function Home() {
                       }}
                       sx={{ width: 300 }}
                       renderInput={(params) => (
-                        <TextField
-                          {...params}
-                          label="Search Player"
-                          variant="outlined"
-                          sx={{
-                            bgcolor: "grey.200",
-                            borderRadius: "5px",
-                            fontWeight: "bold",
-                            fontSize: params.inputProps.value
-                              ? "1rem"
-                              : "1.5rem",
-                            transition: "transform 0.2s ease-in-out",
-                          }}
-                        />
+                          <TextField
+                              {...params}
+                              label="Search Player"
+                              variant="outlined"
+                              sx={{
+                                bgcolor: "grey.200",
+                                borderRadius: "5px",
+                                fontWeight: "bold",
+                                fontSize: params.inputProps.value ? "1rem" : "1.5rem",
+                                transition: "transform 0.2s ease-in-out",
+                              }}
+                              InputProps={{
+                                ...params.InputProps,
+                                value: currentPlayer ? currentPlayer.playerId.replace(/\d+/g, '') : '',
+                              }}
+                          />
                       )}
                     />
                   </div>
