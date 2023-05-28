@@ -1,7 +1,7 @@
 const FullDataTable = (currentPlayerPick, percentileScores, playerGrades) => {
   return [
     {
-      title: "Biographical DataZ",
+      title: "Biographical Data",
       vsaverage: true,
       stats: [
         [
@@ -33,21 +33,21 @@ const FullDataTable = (currentPlayerPick, percentileScores, playerGrades) => {
           playerGrades["2022-23 Cap Figure (M$)"],
         ],
         [
-          3,
+          1,
           "Age",
           currentPlayerPick[0]["Age"],
           percentileScores["Age"],
           playerGrades["Age"],
         ],
         [
-          3,
+          1,
           "Height",
           currentPlayerPick[0]["Height"],
           percentileScores["Height"],
           playerGrades["Height"],
         ],
         [
-          3,
+          1,
           "Weight",
           currentPlayerPick[0]["Weight"],
           percentileScores["Weight"],
@@ -1176,21 +1176,21 @@ const FullDataTable = (currentPlayerPick, percentileScores, playerGrades) => {
       vsaverage: false,
       stats: [
         [
-          3,
+          1,
           "Guarded by Big_pct",
           currentPlayerPick[0]["Guarded by Big_pct"],
           percentileScores["Guarded by Big_pct"],
           playerGrades["Guarded by Big_pct"]
         ],
         [
-          3,
+          1,
           "Guarded by Guard_pct",
           currentPlayerPick[0]["Guarded by Guard_pct"],
           percentileScores["Guarded by Guard_pct"],
           playerGrades["Guarded by Guard_pct"]
         ],
         [
-          3,
+          1,
           "Guarded by Wing_pct",
           currentPlayerPick[0]["Guarded by Wing_pct"],
           percentileScores["Guarded by Wing_pct"],
@@ -1238,7 +1238,7 @@ const FullDataTable = (currentPlayerPick, percentileScores, playerGrades) => {
       vsaverage: false,
       stats: [
         [
-          3,
+          1,
           "Guarded by D-LEBRON",
           currentPlayerPick[0]["Guarded by D-LEBRON"],
           percentileScores["Guarded by D-LEBRON"],
@@ -2090,14 +2090,14 @@ const FullDataTable = (currentPlayerPick, percentileScores, playerGrades) => {
       vsaverage: false,
       stats: [
         [
-          2,
+          1,
           "Total Post frequency_pct",
           currentPlayerPick[0]["Total Post frequency_pct"],
           percentileScores["Total Post frequency_pct"],
           playerGrades["Total Post frequency_pct"]
         ],
         [
-          2,
+          1,
           "Stable Post Up PPP",
           currentPlayerPick[0]["Stable Post Up PPP"],
           percentileScores["Stable Post Up PPP"],
@@ -3046,7 +3046,7 @@ const FullDataTable = (currentPlayerPick, percentileScores, playerGrades) => {
       vsaverage: false,
       stats: [
         [
-          3,
+          1,
           "DK Fantasy Points/75",
           currentPlayerPick[0]["DK Fantasy Points/75"],
           percentileScores["DK Fantasy Points/75"],
@@ -3435,56 +3435,56 @@ const FullDataTable = (currentPlayerPick, percentileScores, playerGrades) => {
       vsaverage: false,
       stats: [
         [
-          2,
+          1,
           "Total eFG% Impact",
           currentPlayerPick[0]["Total eFG% Impact"],
           percentileScores["Total eFG% Impact"],
           playerGrades["Total eFG% Impact"]
         ],
         [
-          2,
+          1,
           "Total FT Rate Impact",
           currentPlayerPick[0]["Total FT Rate Impact"],
           percentileScores["Total FT Rate Impact"],
           playerGrades["Total FT Rate Impact"]
         ],
         [
-          2,
+          1,
           "Total Rebounding Impact",
           currentPlayerPick[0]["Total Rebounding Impact"],
           percentileScores["Total Rebounding Impact"],
           playerGrades["Total Rebounding Impact"]
         ],
         [
-          2,
+          1,
           "Total Turnover Impact",
           currentPlayerPick[0]["Total Turnover Impact"],
           percentileScores["Total Turnover Impact"],
           playerGrades["Total Turnover Impact"]
         ],
         [
-          3,
+          2,
           "Defensive eFG% Impact",
           currentPlayerPick[0]["Defensive eFG% Impact"],
           percentileScores["Defensive eFG% Impact"],
           playerGrades["Defensive eFG% Impact"]
         ],
         [
-          3,
+          2,
           "Offensive eFG% Impact",
           currentPlayerPick[0]["Offensive eFG% Impact"],
           percentileScores["Offensive eFG% Impact"],
           playerGrades["Offensive eFG% Impact"]
         ],
         [
-          3,
+          2,
           "Defensive FT Rate Impact",
           currentPlayerPick[0]["Defensive FT Rate Impact"],
           percentileScores["Defensive FT Rate Impact"],
           playerGrades["Defensive FT Rate Impact"]
         ],
         [
-          3,
+          2,
           "Offensive FT Rate Impact",
           currentPlayerPick[0]["Offensive FT Rate Impact"],
           percentileScores["Offensive FT Rate Impact"],
